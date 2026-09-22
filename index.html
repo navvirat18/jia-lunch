@@ -14,98 +14,136 @@ function acceptTerms(){
   go('page2','page3');
 }
 
-async function confirmLunch(){
+function confirmLunch() {
 
   const time = document.getElementById("lunchTime").value;
 
-  // Make sure a time was selected
-  if(!time){
+  if (!time) {
     alert("Please choose a lunch time first! 🍽️😂");
     return;
   }
 
-  // Find the Confirm Lunch button
-  const button = document.querySelector("#page3 .yes");
+  /*
+   * SHOW PAGE 4 IMMEDIATELY
+   * This means the invitation will work even if
+   * Formspree takes a moment to process the email.
+   */
 
-  // Prevent double clicking
-  button.disabled = true;
-  button.textContent = "SENDING... 📡";
+  document.getElementById("chosen").textContent = time;
 
-  // Create the Formspree submission
-  const formData = new FormData();
+  document.getElementById("page3").classList.add("hidden");
 
-  formData.append("name", "Jia Alliezeh Khan");
-  formData.append("day", "Monday");
-  formData.append("location", "Cyberjaya");
-  formData.append("lunch_time", time);
+  document.getElementById("page4").classList.remove("hidden");
 
-  formData.append(
+  celebrate();
+
+
+  /*
+   * SEND THE RESPONSE TO FORMSPREE
+   */
+
+  const form = document.createElement("form");
+
+  form.action = "https://formspree.io/f/mgavklgd";
+
+  form.method = "POST";
+
+  form.target = "formspreeFrame";
+
+  form.style.display = "none";
+
+
+  function addField(name, value) {
+
+    const input = document.createElement("input");
+
+    input.type = "hidden";
+
+    input.name = name;
+
+    input.value = value;
+
+    form.appendChild(input);
+  }
+
+
+  addField(
+    "name",
+    "Jia Alliezeh Khan"
+  );
+
+  addField(
+    "day",
+    "Monday"
+  );
+
+  addField(
+    "location",
+    "Cyberjaya"
+  );
+
+  addField(
+    "lunch_time",
+    time
+  );
+
+  addField(
     "_subject",
     "🍽️ JIA HAS CHOSEN HER MONDAY LUNCH TIME!"
   );
 
-  formData.append(
+  addField(
     "message",
     "🚨 LUNCH CONFIRMATION 🚨\n\n" +
-    "Jia Alliezeh Khan has chosen her lunch time!\n\n" +
-    "📅 Day: Monday\n" +
-    "⏰ Time: " + time + "\n" +
-    "📍 Location: Cyberjaya\n\n" +
-    "🎉 The lunch mission has officially been scheduled.\n\n" +
-    "— Ministry of Lunch 😂"
+    "Jia Alliezeh Khan has chosen her lunch time.\n\n" +
+    "📅 Monday\n" +
+    "⏰ " + time + "\n" +
+    "📍 Cyberjaya\n\n" +
+    "🎉 The lunch mission has officially been scheduled."
   );
 
-  try{
 
-    const response = await fetch(
-      "https://formspree.io/f/mgavklgd",
-      {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Accept": "application/json"
-        }
-      }
-    );
+  /*
+   * Hidden iframe prevents the page from
+   * navigating away from your invitation.
+   */
 
-    if(response.ok){
+  let iframe = document.getElementById("formspreeFrame");
 
-      // Show the selected time
-      document.getElementById("chosen").textContent = time;
+  if (!iframe) {
 
-      // Move from Page 3 to Page 4
-      document.getElementById("page3").classList.add("hidden");
-      document.getElementById("page4").classList.remove("hidden");
+    iframe = document.createElement("iframe");
 
-      // CONFETTI 🎉
-      celebrate();
+    iframe.id = "formspreeFrame";
 
-    }else{
+    iframe.name = "formspreeFrame";
 
-      const errorData = await response.json().catch(() => null);
+    iframe.style.display = "none";
 
-      console.error("Formspree error:", errorData);
+    document.body.appendChild(iframe);
+  }
 
-      alert(
-        "The Lunch Ministry rejected the submission. 😭\n\n" +
-        "Please try again."
-      );
 
-      button.disabled = false;
-      button.textContent = "CONFIRM LUNCH 🍽️";
-    }
+  document.body.appendChild(form);
 
-  }catch(error){
+  form.submit();
 
-    console.error("Network error:", error);
 
-    alert(
-      "The lunch authorities could not be reached. 😂\n\n" +
-      "Please check your internet connection and try again."
-    );
+  /*
+   * Update the final message
+   */
 
-    button.disabled = false;
-    button.textContent = "CONFIRM LUNCH 🍽️";
+  const finalMessage =
+    document.getElementById("finalMessage");
+
+  if (finalMessage) {
+
+    finalMessage.textContent =
+      "✅ Lunch confirmed! The Ministry of Lunch has been notified. 📧😂";
+
+  }
+
+}
   }
 }
 
