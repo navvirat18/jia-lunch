@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operation: Feed Jia 🍽️</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; font-family:Arial,sans-serif;
+  background:radial-gradient(circle at top,#fff0f6,#ffd9e7 45%,#f7c6d9);
+  color:#241923; overflow-x:hidden;
+}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:20}
+.confetti i{position:absolute;width:9px;height:16px;top:-30px;animation:fall 4s linear infinite;opacity:.85}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{
+  width:min(94vw,520px); background:#fff; border-radius:30px;
+  padding:28px; box-shadow:0 20px 60px #9b426544; text-align:center;
+  position:relative; overflow:hidden;
+}
+.badge{display:inline-block;background:#241923;color:white;padding:8px 13px;border-radius:99px;font-size:12px;font-weight:800;letter-spacing:1px}
+h1{font-size:34px;margin:14px 0 8px}
+h2{font-size:26px}
+p{line-height:1.55}
+.hero{font-size:70px;animation:bounce 1.7s infinite}
+@keyframes bounce{50%{transform:translateY(-9px) rotate(3deg)}}
+.notice{background:#fff4c9;border:2px dashed #e5b900;border-radius:17px;padding:13px;margin:18px 0;font-weight:700}
+.details{text-align:left;background:#f8f4f6;border-radius:18px;padding:16px;line-height:1.9;margin:18px 0}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:18px 0}
+.timebox{background:#241923;color:white;border-radius:13px;padding:10px 4px}
+.timebox b{display:block;font-size:22px}.timebox span{font-size:10px;color:#ffdce9}
+button{
+  border:0;border-radius:14px;padding:14px 18px;font-size:16px;font-weight:800;
+  cursor:pointer;transition:.15s
+}
+.yes{background:#20a464;color:white;box-shadow:0 6px 0 #147548}
+.yes:active{transform:translateY(4px);box-shadow:0 2px 0 #147548}
+.no{background:#d9536f;color:white;position:fixed;z-index:10}
+.secondary{background:#eee;color:#333}
+.hidden{display:none!important}
+select{width:100%;padding:14px;border:2px solid #eee;border-radius:14px;font-size:16px;margin:12px 0 20px}
+.terms{text-align:left;max-height:210px;overflow:auto;background:#faf7f8;padding:15px;border-radius:16px;font-size:13px}
+.terms label{display:block;margin:10px 0}
+.success{animation:pop .55s ease}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.stamp{display:inline-block;border:4px solid #20a464;color:#20a464;padding:8px 14px;transform:rotate(-5deg);font-weight:900;border-radius:10px;margin:10px}
+.tiny{font-size:11px;color:#777}
+</style>
+</head>
+<body>
+
+<div class="confetti" id="confetti"></div>
+<div class="wrap">
+
+<!-- PAGE 1 -->
+<section class="card" id="page1">
+  <div class="hero">🚨🍽️</div>
+  <span class="badge">CLASSIFIED LUNCH DOCUMENT</span>
+  <h1>Jia Alliezeh Khan</h1>
+  <p><b>You have been summoned.</b></p>
+
+  <div class="notice">
+    OFFICIAL NOTICE OF POST-EXAM LUNCH<br>
+    Failure to attend may result in extreme hunger.
+  </div>
+
+  <div class="details">
+    📅 <b>Day:</b> Monday<br>
+    📍 <b>Location:</b> Cyberjaya<br>
+    🎓 <b>Mission:</b> Survive the exam<br>
+    🍜 <b>Reward:</b> Lunch
+  </div>
+
+  <h3>⏳ Time remaining until Monday:</h3>
+  <div class="countdown">
+    <div class="timebox"><b id="days">--</b><span>DAYS</span></div>
+    <div class="timebox"><b id="hours">--</b><span>HOURS</span></div>
+    <div class="timebox"><b id="mins">--</b><span>MIN</span></div>
+    <div class="timebox"><b id="secs">--</b><span>SEC</span></div>
+  </div>
+
+  <button class="yes" onclick="go('page1','page2')">I ACCEPT MY DESTINY 😌</button>
+  <p class="tiny">By clicking, you acknowledge that lunch is now extremely difficult to escape.</p>
+</section>
+
+<!-- PAGE 2 -->
+<section class="card hidden" id="page2">
+  <div class="hero">📜😂</div>
+  <span class="badge">TERMS & CONDITIONS</span>
+  <h1>The Fine Print</h1>
+  <div class="terms">
+    <b>Clause 1 — Attendance</b><br>
+    Jia agrees to appear in Cyberjaya on Monday after her exam for the purpose of consuming lunch.<br><br>
+
+    <b>Clause 2 — The "No" Button</b><br>
+    The No button has been declared legally unavailable. It may flee the premises if approached.<br><br>
+
+    <b>Clause 3 — Hunger</b><br>
+    If Jia becomes hungry, this constitutes automatic confirmation of the invitation.<br><br>
+
+    <b>Clause 4 — Timing</b><br>
+    Jia shall select a reasonable lunch time. "Whenever" is not a valid option because the organiser is hungry.<br><br>
+
+    <b>Clause 5 — Cancellation</b><br>
+    Cancellations must be submitted in triplicate, notarised, approved by the Ministry of Lunch and are therefore basically impossible.<br><br>
+
+    <b>Clause 6 — Complaints</b><br>
+    Complaints may be directed to the nearest plate of food.
+  </div>
+
+  <label><input type="checkbox" id="agree"> I have read absolutely none of this and agree anyway.</label>
+  <br>
+  <button class="yes" onclick="acceptTerms()">CONTINUE TO THE IMPORTANT PART ➡️</button>
+</section>
+
+<!-- PAGE 3 -->
+<section class="card hidden" id="page3">
+  <div class="hero">⏰🍴</div>
+  <span class="badge">SCHEDULING DEPARTMENT</span>
+  <h1>Choose Your Lunch Time</h1>
+  <p>There is technically a choice here. Please enjoy this rare moment of freedom.</p>
+
+  <select id="lunchTime">
+    <option value="">— Select Monday lunch time —</option>
+    <option>11:30 AM</option>
+    <option>12:00 PM</option>
+    <option>12:30 PM</option>
+    <option>1:00 PM</option>
+    <option>1:30 PM</option>
+    <option>2:00 PM</option>
+    <option>2:30 PM</option>
+  </select>
+
+  <button class="yes" onclick="confirmLunch()">CONFIRM LUNCH 🍽️</button>
+  <p class="tiny">Selecting a time does not constitute surrender. It constitutes excellent decision-making.</p>
+</section>
+
+<!-- PAGE 4 -->
+<section class="card hidden success" id="page4">
+  <div class="hero">🎉🥳🍜</div>
+  <span class="badge">MISSION ACCOMPLISHED</span>
+  <h1>IT'S OFFICIAL.</h1>
+  <div class="stamp">APPROVED ✓</div>
+
+  <p><b>Jia Alliezeh Khan has successfully accepted the lunch mission.</b></p>
+
+  <div class="details">
+    📅 <b>Monday</b><br>
+    ⏰ <b id="chosen"></b><br>
+    📍 <b>Cyberjaya</b><br>
+    🍴 <b>Post-exam lunch</b>
+  </div>
+
+  <h2>🎓 ➡️ 🍽️</h2>
+  <p>
+    First: destroy the exam.<br>
+    Then: destroy the food. 😂
+  </p>
+
+  <button class="yes" onclick="celebrate()">I'M READY 😎</button>
+  <p id="finalMessage" class="tiny"></p>
+</section>
+
+</div>
+
+<script>
+function go(a,b){
+  document.getElementById(a).classList.add('hidden');
+  document.getElementById(b).classList.remove('hidden');
+}
+function acceptTerms(){
+  if(!document.getElementById('agree').checked){
+    alert("You must agree. The lunch lawyers insist. 😂");
+    return;
+  }
+  go('page2','page3');
+}
+function confirmLunch(){
+  const t=document.getElementById('lunchTime').value;
+  if(!t){alert("Please choose a time. Even government forms have this requirement.");return;}
+  document.getElementById('chosen').textContent=t;
+  go('page3','page4');
+  celebrate();
+}
+function celebrate(){
+  const box=document.getElementById('confetti');
+  for(let i=0;i<90;i++){
+    const x=document.createElement('i');
+    x.style.left=Math.random()*100+'vw';
+    x.style.animationDelay=Math.random()*2+'s';
+    x.style.transform='rotate('+Math.random()*360+'deg)';
+    x.style.background=['#ff4f81','#ffd43b','#20a464','#6c63ff'][Math.floor(Math.random()*4)];
+    box.appendChild(x);
+  }
+  document.getElementById('finalMessage').textContent="Lunch has been scheduled. Escape attempt unsuccessful. 😭🍽️";
+}
+
+/* Countdown to the next Monday at 11:30 AM, local browser time */
+function countdown(){
+  const now=new Date();
+  const target=new Date(now);
+  const day=now.getDay();
+  let add=(8-day)%7;
+  if(add===0 && now.getHours()>=11) add=7;
+  target.setDate(now.getDate()+add);
+  target.setHours(11,30,0,0);
+  let diff=Math.max(0,target-now);
+  const d=Math.floor(diff/86400000); diff%=86400000;
+  const h=Math.floor(diff/3600000); diff%=3600000;
+  const m=Math.floor(diff/60000); diff%=60000;
+  const s=Math.floor(diff/1000);
+  document.getElementById('days').textContent=d;
+  document.getElementById('hours').textContent=h;
+  document.getElementById('mins').textContent=m;
+  document.getElementById('secs').textContent=s;
+}
+countdown(); setInterval(countdown,1000);
+
+/* The No button escapes */
+const no=document.createElement('button');
+no.textContent='NO 😭';
+no.className='no';
+no.style.left='50%'; no.style.top='78%';
+document.body.appendChild(no);
+function escapeNo(){
+  no.style.left=Math.max(5,Math.random()*85)+'vw';
+  no.style.top=Math.max(5,Math.random()*85)+'vh';
+  no.textContent=['NO 😭','TOO SLOW 😂','NICE TRY','NOPE','ACCESS DENIED 🚫'][Math.floor(Math.random()*5)];
+}
+no.addEventListener('mouseenter',escapeNo);
+no.addEventListener('touchstart',e=>{e.preventDefault();escapeNo()});
+no.addEventListener('click',escapeNo);
+</script>
+</body>
+</html>
