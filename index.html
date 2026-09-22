@@ -1,274 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Operation: Feed Jia 🍽️</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(circle at top,#fff0f6,#ffd9e7 45%,#f7c6d9);
+  color:#241923;
+  overflow-x:hidden;
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+#confetti{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:100;
+}
+
+#confetti i{
+  position:absolute;
+  width:9px;
+  height:16px;
+  top:-30px;
+  animation:fall 4s linear forwards;
+  opacity:.9;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+  }
+}
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.wrap{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+  width:min(94vw,520px);
+  background:white;
+  border-radius:30px;
+  padding:28px;
+  box-shadow:0 20px 60px #9b426544;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.hidden{
+  display:none !important;
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+.badge{
+  display:inline-block;
+  background:#241923;
+  color:white;
+  padding:8px 13px;
+  border-radius:99px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+h1{
+  font-size:34px;
+  margin:14px 0 8px;
+}
+
+h2{
+  font-size:26px;
+}
+
+p{
+  line-height:1.55;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  font-size:70px;
+  animation:bounce 1.7s infinite;
+}
+
+@keyframes bounce{
+  50%{
+    transform:translateY(-9px) rotate(3deg);
+  }
+}
+
+/* =========================
+   NOTICE
+========================= */
+
+.notice{
+  background:#fff4c9;
+  border:2px dashed #e5b900;
+  border-radius:17px;
+  padding:13px;
+  margin:18px 0;
+  font-weight:700;
+}
+
+/* =========================
+   DETAILS
+========================= */
+
+.details{
+  text-align:left;
+  background:#f8f4f6;
+  border-radius:18px;
+  padding:16px;
+  line-height:1.9;
+  margin:18px 0;
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+.countdown{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin:18px 0;
+}
+
+.timebox{
+  background:#241923;
+  color:white;
+  border-radius:13px;
+  padding:10px 4px;
+}
+
+.timebox b{
+  display:block;
+  font-size:22px;
+}
+
+.timebox span{
+  font-size:10px;
+  color:#ffdce9;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button{
+  border:0;
+  border-radius:14px;
+  padding:14px 18px;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.15s;
+}
+
+button:active{
+  transform:scale(.97);
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.yes{
+  background:#20a464;
+  color:white;
+  box-shadow:0 6px 0 #147548;
+}
+
+.yes:active{
+  transform:translateY(4px);
+  box-shadow:0 2px 0 #147548;
+}
+
+/* =========================
+   RUNAWAY NO
+========================= */
+
+.no{
+  background:#d9536f;
+  color:white;
+  position:fixed;
+  z-index:50;
+  box-shadow:0 5px 0 #a83c54;
+}
+
+/* =========================
+   TERMS
+========================= */
+
+.terms{
+  text-align:left;
+  max-height:210px;
+  overflow:auto;
+  background:#faf7f8;
+  padding:15px;
+  border-radius:16px;
+  font-size:13px;
+}
+
+.terms b{
+  color:#d14d72;
+}
+
+.terms label{
+  display:block;
+  margin:10px 0;
+}
+
+/* =========================
+   SELECT
+========================= */
+
+select{
+  width:100%;
+  padding:14px;
+  border:2px solid #eee;
+  border-radius:14px;
+  font-size:16px;
+  margin:12px 0 20px;
+  background:white;
+}
+
+/* =========================
+   SUCCESS
+========================= */
+
+.success{
+  animation:pop .55s ease;
+}
+
+@keyframes pop{
+  from{
+    transform:scale(.7);
+    opacity:0;
+  }
+
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+.stamp{
+  display:inline-block;
+  border:4px solid #20a464;
+  color:#20a464;
+  padding:8px 14px;
+  transform:rotate(-5deg);
+  font-weight:900;
+  border-radius:10px;
+  margin:10px;
+}
+
+.tiny{
+  font-size:11px;
+  color:#777;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:400px){
+
+  .card{
+    padding:22px;
+  }
+
+  h1{
+    font-size:29px;
+  }
+
+  .hero{
+    font-size:60px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- CONFETTI -->
+<div id="confetti"></div>
+
+
+<div class="wrap">
+
+
+<!-- ==================================================
+     PAGE 1
+================================================== -->
+
+<section class="card" id="page1">
+
+  <div class="hero">🚨🍽️</div>
+
+  <span class="badge">
+    CLASSIFIED LUNCH DOCUMENT
+  </span>
+
+  <h1>
+    Jia Alliezeh Khan
+  </h1>
+
+  <p>
+    <b>You have been summoned.</b>
+  </p>
+
+
+  <div class="notice">
+
+    🚨 OFFICIAL NOTICE OF POST-EXAM LUNCH 🚨
+
+    <br><br>
+
+    Failure to attend may result in:
+
+    <br>
+
+    • Extreme hunger<br>
+    • Unnecessary sadness<br>
+    • Missing out on food<br>
+    • The organiser becoming dramatic
+
+  </div>
+
+
+  <div class="details">
+
+    📅 <b>Day:</b> Monday<br>
+
+    📍 <b>Location:</b> Cyberjaya<br>
+
+    🎓 <b>Mission:</b> Survive the exam<br>
+
+    🍜 <b>Reward:</b> Lunch<br>
+
+    ❤️ <b>Important:</b> You are expected to attend
+
+  </div>
+
+
+  <h3>
+    ⏳ Time remaining until Monday:
+  </h3>
+
+
+  <div class="countdown">
+
+    <div class="timebox">
+      <b id="days">--</b>
+      <span>DAYS</span>
+    </div>
+
+    <div class="timebox">
+      <b id="hours">--</b>
+      <span>HOURS</span>
+    </div>
+
+    <div class="timebox">
+      <b id="mins">--</b>
+      <span>MIN</span>
+    </div>
+
+    <div class="timebox">
+      <b id="secs">--</b>
+      <span>SEC</span>
+    </div>
+
+  </div>
+
+
+  <button
+    class="yes"
+    id="acceptButton"
+    type="button"
+  >
+    I ACCEPT MY DESTINY 😌
+  </button>
+
+
+  <p class="tiny">
+
+    By clicking this button, you acknowledge that
+    lunch is now extremely difficult to escape.
+
+  </p>
+
+</section>
+
+
+
+<!-- ==================================================
+     PAGE 2
+================================================== -->
+
+<section class="card hidden" id="page2">
+
+  <div class="hero">
+    📜😂
+  </div>
+
+  <span class="badge">
+    TERMS & CONDITIONS
+  </span>
+
+  <h1>
+    The Fine Print
+  </h1>
+
+
+  <div class="terms">
+
+    <b>Clause 1 — Attendance</b>
+
+    <br>
+
+    Jia agrees to appear in Cyberjaya on Monday
+    after her exam for the purpose of consuming lunch.
+
+    <br><br>
+
+
+    <b>Clause 2 — The "No" Button</b>
+
+    <br>
+
+    The No button has been declared legally unavailable.
+    It may flee the premises if approached.
+
+    <br><br>
+
+
+    <b>Clause 3 — Hunger</b>
+
+    <br>
+
+    If Jia becomes hungry, this constitutes
+    automatic confirmation of the invitation.
+
+    <br><br>
+
+
+    <b>Clause 4 — Timing</b>
+
+    <br>
+
+    Jia shall select a reasonable lunch time.
+    "Whenever" is not a valid option because
+    the organiser is hungry.
+
+    <br><br>
+
+
+    <b>Clause 5 — Cancellation</b>
+
+    <br>
+
+    Cancellations must be submitted in triplicate,
+    notarised, approved by the Ministry of Lunch
+    and are therefore basically impossible.
+
+    <br><br>
+
+
+    <b>Clause 6 — Complaints</b>
+
+    <br>
+
+    Complaints may be directed to the nearest plate
+    of food.
+
+    <br><br>
+
+
+    <b>Clause 7 — Exam</b>
+
+    <br>
+
+    The exam must be defeated before lunch
+    can commence.
+
+    <br><br>
+
+
+    <b>Clause 8 — Final Authority</b>
+
+    <br>
+
+    The lunch organiser reserves the right to
+    say "but I already planned this" at any point.
+
+  </div>
+
+
+  <label>
+
+    <input
+      type="checkbox"
+      id="agree"
+    >
+
+    I have read absolutely none of this
+    and agree anyway.
+
+  </label>
+
+
+  <br>
+
+
+  <button
+    class="yes"
+    id="termsButton"
+    type="button"
+  >
+
+    CONTINUE TO THE IMPORTANT PART ➡️
+
+  </button>
+
+</section>
+
+
+
+<!-- ==================================================
+     PAGE 3
+================================================== -->
+
+<section class="card hidden" id="page3">
+
+  <div class="hero">
+    ⏰🍴
+  </div>
+
+  <span class="badge">
+    SCHEDULING DEPARTMENT
+  </span>
+
+
+  <h1>
+    Choose Your Lunch Time
+  </h1>
+
+
+  <p>
+
+    There is technically a choice here.
+
+    <br>
+
+    Please enjoy this rare moment of freedom.
+
+  </p>
+
+
+  <select id="lunchTime">
+
+    <option value="">
+      — Select Monday lunch time —
+    </option>
+
+    <option value="11:30 AM">
+      11:30 AM
+    </option>
+
+    <option value="12:00 PM">
+      12:00 PM
+    </option>
+
+    <option value="12:30 PM">
+      12:30 PM
+    </option>
+
+    <option value="1:00 PM">
+      1:00 PM
+    </option>
+
+    <option value="1:30 PM">
+      1:30 PM
+    </option>
+
+    <option value="2:00 PM">
+      2:00 PM
+    </option>
+
+    <option value="2:30 PM">
+      2:30 PM
+    </option>
+
+  </select>
+
+
+  <button
+    class="yes"
+    id="confirmButton"
+    type="button"
+  >
+
+    CONFIRM LUNCH 🍽️
+
+  </button>
+
+
+  <p class="tiny">
+
+    Selecting a time does not constitute surrender.
+
+    <br>
+
+    It constitutes excellent decision-making.
+
+  </p>
+
+</section>
+
+
+
+<!-- ==================================================
+     PAGE 4
+================================================== -->
+
+<section
+  class="card hidden success"
+  id="page4"
+>
+
+  <div class="hero">
+    🎉🥳🍜
+  </div>
+
+
+  <span class="badge">
+    MISSION ACCOMPLISHED
+  </span>
+
+
+  <h1>
+    IT'S OFFICIAL.
+  </h1>
+
+
+  <div class="stamp">
+    APPROVED ✓
+  </div>
+
+
+  <p>
+
+    <b>
+      Jia Alliezeh Khan has successfully
+      accepted the lunch mission.
+    </b>
+
+  </p>
+
+
+  <div class="details">
+
+    📅 <b>Monday</b>
+
+    <br>
+
+    ⏰ <b id="chosen"></b>
+
+    <br>
+
+    📍 <b>Cyberjaya</b>
+
+    <br>
+
+    🍴 <b>Post-exam lunch</b>
+
+  </div>
+
+
+  <h2>
+    🎓 ➡️ 🍽️
+  </h2>
+
+
+  <p>
+
+    First: destroy the exam.
+
+    <br>
+
+    Then: destroy the food. 😂
+
+  </p>
+
+
+  <button
+    class="yes"
+    id="readyButton"
+    type="button"
+  >
+
+    I'M READY 😎
+
+  </button>
+
+
+  <p
+    id="finalMessage"
+    class="tiny"
+  ></p>
+
+</section>
+
+
+</div>
+
+
+<!-- ==================================================
+     HIDDEN FORMSPREE TARGET
+================================================== -->
+
+<iframe
+  name="formspreeFrame"
+  id="formspreeFrame"
+  style="display:none;"
+  title="Formspree submission"
+></iframe>
+
+
+
 <script>
 
-function go(a,b){
-  document.getElementById(a).classList.add('hidden');
-  document.getElementById(b).classList.remove('hidden');
-}
+/* ==================================================
+   PAGE NAVIGATION
+================================================== */
 
-function acceptTerms(){
-  if(!document.getElementById('agree').checked){
-    alert("You must agree. The lunch lawyers insist. 😂");
-    return;
+function showPage(page){
+
+  const pages = [
+    'page1',
+    'page2',
+    'page3',
+    'page4'
+  ];
+
+  pages.forEach(function(id){
+
+    const element =
+      document.getElementById(id);
+
+    if(element){
+      element.classList.add('hidden');
+    }
+
+  });
+
+
+  const selected =
+    document.getElementById(page);
+
+  if(selected){
+    selected.classList.remove('hidden');
   }
 
-  go('page2','page3');
-}
 
-function confirmLunch() {
+  /* Hide runaway NO button after Page 1 */
 
-  const time = document.getElementById("lunchTime").value;
+  const noButton =
+    document.getElementById('noButton');
 
-  if (!time) {
-    alert("Please choose a lunch time first! 🍽️😂");
-    return;
+  if(noButton){
+
+    if(page === 'page1'){
+      noButton.style.display = 'block';
+    }else{
+      noButton.style.display = 'none';
+    }
+
   }
 
-  /*
-   * SHOW PAGE 4 IMMEDIATELY
-   * This means the invitation will work even if
-   * Formspree takes a moment to process the email.
-   */
-
-  document.getElementById("chosen").textContent = time;
-
-  document.getElementById("page3").classList.add("hidden");
-
-  document.getElementById("page4").classList.remove("hidden");
-
-  celebrate();
+}
 
 
-  /*
-   * SEND THE RESPONSE TO FORMSPREE
-   */
+/* ==================================================
+   PAGE 1
+================================================== */
 
-  const form = document.createElement("form");
+document
+  .getElementById('acceptButton')
+  .addEventListener('click',function(){
 
-  form.action = "https://formspree.io/f/mgavklgd";
+    showPage('page2');
 
-  form.method = "POST";
-
-  form.target = "formspreeFrame";
-
-  form.style.display = "none";
+  });
 
 
-  function addField(name, value) {
 
-    const input = document.createElement("input");
+/* ==================================================
+   PAGE 2
+================================================== */
 
-    input.type = "hidden";
+document
+  .getElementById('termsButton')
+  .addEventListener('click',function(){
 
-    input.name = name;
+    const agree =
+      document.getElementById('agree');
 
-    input.value = value;
+    if(!agree.checked){
+
+      alert(
+        "You must agree. The lunch lawyers insist. 😂"
+      );
+
+      return;
+    }
+
+
+    showPage('page3');
+
+  });
+
+
+
+/* ==================================================
+   PAGE 3 — CONFIRM LUNCH
+================================================== */
+
+document
+  .getElementById('confirmButton')
+  .addEventListener('click',function(){
+
+    const time =
+      document.getElementById('lunchTime').value;
+
+
+    /* Make sure time was selected */
+
+    if(!time){
+
+      alert(
+        "Please choose a lunch time first! 🍽️😂"
+      );
+
+      return;
+    }
+
+
+    const button =
+      document.getElementById('confirmButton');
+
+
+    button.disabled = true;
+
+    button.textContent =
+      "CONFIRMED ✅";
+
+
+    /* ------------------------------------------
+       SHOW FINAL PAGE IMMEDIATELY
+       ------------------------------------------ */
+
+    document
+      .getElementById('chosen')
+      .textContent = time;
+
+
+    showPage('page4');
+
+
+    celebrate();
+
+
+    /* ------------------------------------------
+       SEND EMAIL THROUGH FORMSPREE
+       ------------------------------------------ */
+
+    sendToFormspree(time);
+
+  });
+
+
+
+/* ==================================================
+   FORMSPREE
+================================================== */
+
+function sendToFormspree(time){
+
+  const form =
+    document.createElement('form');
+
+
+  form.action =
+    'https://formspree.io/f/mgavklgd';
+
+
+  form.method =
+    'POST';
+
+
+  form.target =
+    'formspreeFrame';
+
+
+  form.style.display =
+    'none';
+
+
+  /* Helper */
+
+  function addField(name,value){
+
+    const input =
+      document.createElement('input');
+
+
+    input.type =
+      'hidden';
+
+
+    input.name =
+      name;
+
+
+    input.value =
+      value;
+
 
     form.appendChild(input);
+
   }
 
 
-  addField(
-    "name",
-    "Jia Alliezeh Khan"
-  );
+  /* Form fields */
 
   addField(
-    "day",
-    "Monday"
+    'name',
+    'Jia Alliezeh Khan'
   );
 
-  addField(
-    "location",
-    "Cyberjaya"
-  );
 
   addField(
-    "lunch_time",
+    'day',
+    'Monday'
+  );
+
+
+  addField(
+    'location',
+    'Cyberjaya'
+  );
+
+
+  addField(
+    'lunch_time',
     time
   );
 
-  addField(
-    "_subject",
-    "🍽️ JIA HAS CHOSEN HER MONDAY LUNCH TIME!"
-  );
 
   addField(
-    "message",
-    "🚨 LUNCH CONFIRMATION 🚨\n\n" +
-    "Jia Alliezeh Khan has chosen her lunch time.\n\n" +
-    "📅 Monday\n" +
-    "⏰ " + time + "\n" +
-    "📍 Cyberjaya\n\n" +
-    "🎉 The lunch mission has officially been scheduled."
+    '_subject',
+    '🍽️ JIA HAS CHOSEN HER MONDAY LUNCH TIME!'
   );
 
 
-  /*
-   * Hidden iframe prevents the page from
-   * navigating away from your invitation.
-   */
+  addField(
+    'message',
 
-  let iframe = document.getElementById("formspreeFrame");
+    '🚨 LUNCH CONFIRMATION 🚨\n\n' +
 
-  if (!iframe) {
+    'Jia Alliezeh Khan has chosen her lunch time.\n\n' +
 
-    iframe = document.createElement("iframe");
+    '📅 Day: Monday\n' +
 
-    iframe.id = "formspreeFrame";
+    '⏰ Time: ' + time + '\n' +
 
-    iframe.name = "formspreeFrame";
+    '📍 Location: Cyberjaya\n\n' +
 
-    iframe.style.display = "none";
+    '🎉 The lunch mission has officially been scheduled.\n\n' +
 
-    document.body.appendChild(iframe);
-  }
+    '— Ministry of Lunch 😂'
+
+  );
 
 
   document.body.appendChild(form);
 
-  form.submit();
+
+  try{
+
+    form.submit();
 
 
-  /*
-   * Update the final message
-   */
+    document
+      .getElementById('finalMessage')
+      .textContent =
+      '📧 The Ministry of Lunch has been notified! 😂';
 
-  const finalMessage =
-    document.getElementById("finalMessage");
-
-  if (finalMessage) {
-
-    finalMessage.textContent =
-      "✅ Lunch confirmed! The Ministry of Lunch has been notified. 📧😂";
   }
+
+  catch(error){
+
+    console.error(error);
+
+
+    document
+      .getElementById('finalMessage')
+      .textContent =
+      '✅ Lunch is confirmed! 📧';
+
+  }
+
 }
+
+
+
+/* ==================================================
+   CELEBRATION
+================================================== */
+
 function celebrate(){
 
-  const box = document.getElementById('confetti');
+  const box =
+    document.getElementById('confetti');
+
+
+  /* Clear old confetti */
+
+  box.innerHTML = '';
+
 
   for(let i=0;i<90;i++){
 
-    const x = document.createElement('i');
+    const piece =
+      document.createElement('i');
 
-    x.style.left = Math.random()*100+'vw';
 
-    x.style.animationDelay =
-      Math.random()*2+'s';
+    piece.style.left =
+      Math.random()*100 + 'vw';
 
-    x.style.transform =
-      'rotate('+Math.random()*360+'deg)';
 
-    x.style.background =
-      ['#ff4f81','#ffd43b','#20a464','#6c63ff']
-      [Math.floor(Math.random()*4)];
+    piece.style.animationDelay =
+      Math.random()*2 + 's';
 
-    box.appendChild(x);
+
+    piece.style.background =
+      [
+        '#ff4f81',
+        '#ffd43b',
+        '#20a464',
+        '#6c63ff'
+      ][
+        Math.floor(
+          Math.random()*4
+        )
+      ];
+
+
+    box.appendChild(piece);
+
   }
 
-  document.getElementById('finalMessage').textContent =
-    "Lunch has been scheduled. Escape attempt unsuccessful. 😭🍽️";
 }
 
 
-/* ============================
-   EXAM COUNTDOWN
-   ============================ */
+
+/* ==================================================
+   FINAL BUTTON
+================================================== */
+
+document
+  .getElementById('readyButton')
+  .addEventListener('click',function(){
+
+    celebrate();
+
+
+    document
+      .getElementById('finalMessage')
+      .textContent =
+      'Lunch has been scheduled. Escape attempt unsuccessful. 😭🍽️';
+
+  });
+
+
+
+/* ==================================================
+   COUNTDOWN
+================================================== */
 
 function countdown(){
 
-  const now = new Date();
+  const now =
+    new Date();
 
-  const target = new Date(now);
 
-  const day = now.getDay();
+  const target =
+    new Date(now);
 
-  let add = (8-day)%7;
 
-  if(add === 0 && now.getHours() >= 11){
-    add = 7;
-  }
+  const day =
+    now.getDay();
+
+
+  /*
+    JavaScript:
+    Sunday = 0
+    Monday = 1
+  */
+
+  let daysUntilMonday =
+    (1 - day + 7) % 7;
+
+
+  /*
+    If today is Monday and
+    the target time has already passed,
+    count toward next Monday.
+  */
 
   target.setDate(
-    now.getDate()+add
+    now.getDate() +
+    daysUntilMonday
   );
 
-  target.setHours(11,30,0,0);
 
-  let diff = Math.max(0,target-now);
+  target.setHours(
+    11,
+    30,
+    0,
+    0
+  );
 
-  const d = Math.floor(diff/86400000);
-  diff %= 86400000;
 
-  const h = Math.floor(diff/3600000);
-  diff %= 3600000;
+  if(
+    daysUntilMonday === 0 &&
+    now >= target
+  ){
 
-  const m = Math.floor(diff/60000);
-  diff %= 60000;
+    target.setDate(
+      target.getDate() + 7
+    );
 
-  const s = Math.floor(diff/1000);
+  }
 
-  document.getElementById('days').textContent = d;
-  document.getElementById('hours').textContent = h;
-  document.getElementById('mins').textContent = m;
-  document.getElementById('secs').textContent = s;
+
+  let difference =
+    Math.max(
+      0,
+      target.getTime() -
+      now.getTime()
+    );
+
+
+  const days =
+    Math.floor(
+      difference /
+      86400000
+    );
+
+
+  difference %=
+    86400000;
+
+
+  const hours =
+    Math.floor(
+      difference /
+      3600000
+    );
+
+
+  difference %=
+    3600000;
+
+
+  const minutes =
+    Math.floor(
+      difference /
+      60000
+    );
+
+
+  difference %=
+    60000;
+
+
+  const seconds =
+    Math.floor(
+      difference /
+      1000
+    );
+
+
+  document
+    .getElementById('days')
+    .textContent = days;
+
+
+  document
+    .getElementById('hours')
+    .textContent = hours;
+
+
+  document
+    .getElementById('mins')
+    .textContent = minutes;
+
+
+  document
+    .getElementById('secs')
+    .textContent = seconds;
+
 }
+
 
 countdown();
 
-setInterval(countdown,1000);
+
+setInterval(
+  countdown,
+  1000
+);
 
 
-/* ============================
+
+/* ==================================================
    RUNAWAY NO BUTTON 😂
-   ============================ */
+================================================== */
 
-const no = document.createElement('button');
+const no =
+  document.createElement('button');
 
-no.textContent = 'NO 😭';
 
-no.className = 'no';
+no.id =
+  'noButton';
 
-no.style.left = '50%';
 
-no.style.top = '78%';
+no.className =
+  'no';
+
+
+no.type =
+  'button';
+
+
+no.textContent =
+  'NO 😭';
+
+
+no.style.left =
+  '50%';
+
+
+no.style.top =
+  '78%';
+
 
 document.body.appendChild(no);
 
 
+
 function escapeNo(){
 
+  const randomX =
+    Math.max(
+      5,
+      Math.random()*82
+    );
+
+
+  const randomY =
+    Math.max(
+      5,
+      Math.random()*82
+    );
+
+
   no.style.left =
-    Math.max(5,Math.random()*85)+'vw';
+    randomX + 'vw';
+
 
   no.style.top =
-    Math.max(5,Math.random()*85)+'vh';
+    randomY + 'vh';
+
 
   no.textContent =
-    ['NO 😭',
-     'TOO SLOW 😂',
-     'NICE TRY',
-     'NOPE',
-     'ACCESS DENIED 🚫'
-    ][Math.floor(Math.random()*5)];
+    [
+      'NO 😭',
+      'TOO SLOW 😂',
+      'NICE TRY',
+      'NOPE',
+      'ACCESS DENIED 🚫',
+      'ERROR 404: NO NOT FOUND 😂',
+      'WRONG BUTTON',
+      'ABSOLUTELY NOT... WAIT YES 😂'
+    ][
+      Math.floor(
+        Math.random()*8
+      )
+    ];
+
 }
 
+
+
+/* Desktop */
 
 no.addEventListener(
   'mouseenter',
   escapeNo
 );
 
+
+
+/* Mobile */
+
 no.addEventListener(
   'touchstart',
-  e=>{
-    e.preventDefault();
+  function(event){
+
+    event.preventDefault();
+
     escapeNo();
+
   }
 );
 
+
+
+/* If somehow clicked */
+
 no.addEventListener(
   'click',
-  escapeNo
+  function(){
+
+    escapeNo();
+
+  }
 );
 
 </script>
+
+</body>
+</html>
