@@ -177,24 +177,22 @@ function acceptTerms(){
   }
   go('page2','page3');
 }
-function confirmLunch(){
-  async function confirmLunch() {
+async function confirmLunch() {
+
     const time = document.getElementById("lunchTime").value;
 
+    // Make sure a time was selected
     if (!time) {
-        alert("Please choose a time. Even government forms have this requirement. 😂");
+        alert("Please choose a lunch time first! 🍽️😂");
         return;
     }
 
-    // Show the final confirmation immediately
-    document.getElementById("chosen").textContent = time;
-    go("page3", "page4");
-    celebrate();
+    // Prevent accidental double-clicks
+    const button = document.querySelector("#page3 .yes");
+    button.disabled = true;
+    button.textContent = "SENDING... 📡";
 
-    const status = document.getElementById("status");
-    status.textContent = "📨 Sending your lunch selection...";
-
-    // Send the selected time directly to your Formspree email notification
+    // Create the submission
     const formData = new FormData();
 
     formData.append("name", "Jia Alliezeh Khan");
@@ -204,7 +202,7 @@ function confirmLunch(){
 
     formData.append(
         "_subject",
-        "🍽️ Jia has chosen her Monday lunch time!"
+        "🍽️ JIA HAS CHOSEN HER MONDAY LUNCH TIME!"
     );
 
     formData.append(
@@ -219,6 +217,7 @@ function confirmLunch(){
     );
 
     try {
+
         const response = await fetch(
             "https://formspree.io/f/mgavklgd",
             {
@@ -231,16 +230,45 @@ function confirmLunch(){
         );
 
         if (response.ok) {
-            status.textContent =
-                "✅ Confirmed! The lunch authorities have been notified. 📧";
+
+            // Put the chosen time on the final confirmation
+            document.getElementById("chosen").textContent = time;
+
+            // Move to the final page
+            document.getElementById("page3").classList.add("hidden");
+            document.getElementById("page4").classList.remove("hidden");
+
+            // Celebrate 🎉
+            celebrate();
+
         } else {
-            status.textContent =
-                "⚠️ Lunch is confirmed, but the notification could not be sent.";
+
+            const errorData = await response.json().catch(() => null);
+
+            console.error("Formspree error:", errorData);
+
+            alert(
+                "Something went wrong sending the lunch confirmation. 😭\n\n" +
+                "Please try again."
+            );
+
+            button.disabled = false;
+            button.textContent = "CONFIRM LUNCH 🍽️";
         }
 
     } catch (error) {
-        status.textContent =
-            "⚠️ Lunch is confirmed on screen, but the email notification failed.";
+
+        console.error("Network error:", error);
+
+        alert(
+            "The lunch authorities could not be reached. 😂\n\n" +
+            "Please check your internet connection and try again."
+        );
+
+        button.disabled = false;
+        button.textContent = "CONFIRM LUNCH 🍽️";
+    }
+}
     }
 }
 }
